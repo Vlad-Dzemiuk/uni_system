@@ -9,22 +9,22 @@ export function authenticate() {
     const [type, token] = header.split(" ");
 
     if (type !== "Bearer" || !token) {
-      return next(new ApiError(401, "Missing Bearer token"));
+      return next(new ApiError(401, "Відсутній токен авторизації"));
     }
 
     try {
       const payload = jwt.verify(token, env.JWT_SECRET);
 
       const user = await User.findById(payload.sub).lean();
-      if (!user) return next(new ApiError(401, "Invalid token"));
+      if (!user) return next(new ApiError(401, "Недійсний токен"));
 
-      if (user.isActive === false) return next(new ApiError(403, "Account disabled"));
+      if (user.isActive === false) return next(new ApiError(403, "Обліковий запис вимкнено"));
 
       req.user = user;
       req.auth = payload;
       next();
     } catch (e) {
-      return next(new ApiError(401, "Invalid or expired token"));
+      return next(new ApiError(401, "Недійсний або протермінований токен"));
     }
   };
 }

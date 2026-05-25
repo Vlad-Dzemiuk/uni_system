@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+﻿import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 const { Schema } = mongoose;
@@ -61,6 +61,14 @@ const userSchema = new Schema(
     isActive: { type: Boolean, default: true, index: true },
     blockedAt: { type: Date },
     lastLoginAt: { type: Date },
+    
+    faculty: { type: mongoose.Schema.Types.ObjectId, ref: "Faculty", index: true },
+    groupName: { type: String, trim: true, maxlength: 80, index: true },
+    specialty: { type: String, trim: true, maxlength: 140, index: true },
+    birthDate: { type: Date },
+    badge: { type: String, trim: true, maxlength: 80, index: true },
+    disciplines: { type: [String], default: [] },
+
   },
   {
     timestamps: true,
@@ -81,12 +89,14 @@ const userSchema = new Schema(
         return ret;
       },
     },
+
   }
 );
 
 userSchema.index({ email: 1 }, { unique: true });
 userSchema.index({ fullName: 1 });
 userSchema.index({ role: 1, isActive: 1 });
+userSchema.index({ faculty: 1, role: 1, fullName: 1 });
 
 userSchema.index({ fullName: "text", email: "text" });
 
@@ -121,3 +131,6 @@ userSchema.statics.findByEmail = function (email) {
 
 export const User = mongoose.model("User", userSchema);
 export const USER_ROLES = ROLES;
+
+
+

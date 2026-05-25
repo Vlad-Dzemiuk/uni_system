@@ -1,0 +1,10 @@
+{
+  "/api/auth/me/route": "app/api/auth/me/route.js",
+  "/api/admission/faculties/route": "app/api/admission/faculties/route.js",
+  "/api/admission/faculty/candidates/route": "app/api/admission/faculty/candidates/route.js",
+  "/api/notifications/route": "app/api/notifications/route.js",
+  "/api/users/route": "app/api/users/route.js",
+  "/(dashboard)/certificates/ordered/page": "app/(dashboard)/certificates/ordered/page.js",
+  "/(dashboard)/certificates/page": "app/(dashboard)/certificates/page.js",
+  "/(dashboard)/admin/faculties/page": "app/(dashboard)/admin/faculties/page.js"
+}

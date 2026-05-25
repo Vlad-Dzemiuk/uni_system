@@ -5,12 +5,12 @@ export function errorHandler(err, req, res, next) {
 
   req.log?.error(
     { err, statusCode, requestId: req.id },
-    err instanceof ApiError ? 'API error' : 'Unexpected error'
+    err instanceof ApiError ? 'Помилка API' : 'Неочікувана помилка'
   );
 
   res.status(statusCode).json({
     error: {
-      message: statusCode === 500 ? 'Internal Server Error' : err.message,
+      message: statusCode === 500 ? 'Внутрішня помилка сервера' : err.message,
       requestId: req.id,
       details: err instanceof ApiError ? err.details : undefined
     }

@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import cookieParser from "cookie-parser";
 
 import { env } from './config/env.js';
 import { httpLogger } from './logger/http.js';
@@ -12,7 +13,7 @@ export function createApp() {
     const app = express();
 
     app.set('trust proxy', true);
-
+    app.use(cookieParser())
     app.use(httpLogger);
     app.use(helmet());
     app.use(cors({ origin: env.CORS_ORIGINS.length ? env.CORS_ORIGINS : true, credentials: true }));

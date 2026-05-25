@@ -45,3 +45,4 @@ export const resendVerifyEmailSchema = z.object({
   params: z.object({}).optional(),
   query: z.object({}).optional(),
 });
+

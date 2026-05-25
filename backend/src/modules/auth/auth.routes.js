@@ -17,6 +17,8 @@ authRouter.post("/login", validate(loginSchema), ctrl.login);
 authRouter.post("/email/verify", validate(verifyEmailSchema), ctrl.verifyEmail);
 authRouter.post("/email/resend", validate(resendVerifyEmailSchema), ctrl.resendVerificationEmail);
 
-authRouter.get("/me", authenticate(), ctrl.me);
+authRouter.get("/google/start", ctrl.googleStart);
+authRouter.get("/google/callback", ctrl.googleCallback);
 
+authRouter.get("/me", authenticate(), ctrl.me);
 authRouter.post("/logout", authenticate(), ctrl.logout);

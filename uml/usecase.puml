@@ -1,0 +1,28 @@
+@startuml
+start
+:Ініціатор обирає режим подання;
+if (TEMPLATE?) then (так)
+  :Отримати схему полів типу довідки;
+  :Заповнити параметри заявки;
+else (ні)
+  :Описати мету отримання довідки;
+  :Заповнити базові атрибути;
+endif
+:Валідація даних;
+if (Валідація успішна?) then (так)
+  :Створення заявки;\nstatus=SUBMITTED;\nподія в timeline;
+  :Деканат бере заявку в роботу;
+  :status=IN_REVIEW;\nподія в timeline;
+  if (Заявка виконується?) then (так)
+    :status=FORMING;\nподія в timeline;
+    :Підготовка довідки;
+    :status=READY;\nreadyAt;\nподія в timeline;
+  else (ні)
+    :status=REJECTED;\nобов'язковий decisionComment;\nподія в timeline;
+  endif
+  :Генерація сповіщення заявнику;
+else (ні)
+  :Повернення помилки валідації;
+endif
+stop
+@enduml

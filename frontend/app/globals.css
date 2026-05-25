@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 50% 98%;
+    --foreground: 220 35% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 35% 16%;
+
+    --muted: 210 35% 95%;
+    --muted-foreground: 215 18% 42%;
+
+    --primary: 203 92% 54%;
+    --primary-foreground: 0 0% 100%;
+
+    --border: 214 27% 88%;
+    --input: 214 27% 88%;
+    --ring: 203 92% 54%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    color: hsl(var(--foreground));
+    background:
+      radial-gradient(circle at top left, rgba(186, 230, 253, 0.82), transparent 26%),
+      radial-gradient(circle at top right, rgba(224, 242, 254, 0.72), transparent 22%),
+      linear-gradient(180deg, #eef5ff 0%, #f8fbff 38%, #f5f8fd 100%);
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply min-h-screen p-3 md:p-4 lg:p-6;
+  }
+
+  .app-shell-inner {
+    @apply relative min-h-[calc(100vh-1.5rem)] overflow-hidden rounded-[34px] border border-white/70 bg-white/70 shadow-soft backdrop-blur-xl;
+  }
+
+  .app-shell-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at top left, rgba(14, 165, 233, 0.1), transparent 22%),
+      radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.08), transparent 24%);
+  }
+
+  .page-panel {
+    @apply relative rounded-[28px] border border-white/80 bg-white/90 shadow-soft backdrop-blur;
+  }
+
+  .glass-panel {
+    @apply rounded-[24px] border border-white/70 bg-white/80 shadow-soft backdrop-blur;
+  }
+
+  .section-title {
+    @apply text-[1.75rem] font-semibold tracking-tight text-slate-900;
+  }
+
+  .section-copy {
+    @apply mt-2 text-sm leading-6 text-slate-500;
+  }
+
+  .dashboard-grid {
+    @apply grid gap-5 xl:grid-cols-[minmax(0,1.3fr)_360px];
+  }
+
+  .metrics-grid {
+    @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .metric-card {
+    @apply relative isolate overflow-hidden rounded-[26px] border border-slate-200/80 bg-white p-5 shadow-[0_18px_40px_rgba(15,23,42,0.07)];
+  }
+
+  .metric-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .metric-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(248, 250, 252, 0.88), rgba(255, 255, 255, 0)),
+      linear-gradient(90deg, rgba(226, 232, 240, 0.24) 1px, transparent 1px);
+    background-size: auto, 18px 18px;
+    mask-image: linear-gradient(180deg, black, transparent 82%);
+  }
+
+  .metric-card::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 4px;
+    z-index: 0;
+    background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 55%, #67e8f9 100%);
+  }
+
+  .data-table-shell {
+    @apply overflow-x-auto overflow-y-hidden rounded-[24px] border border-slate-200/80 bg-white;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.9) rgba(241, 245, 249, 0.95);
+  }
+
+  .data-table-shell::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  .data-table-shell::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 0.95);
+  }
+
+  .data-table-shell::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: rgba(148, 163, 184, 0.88);
+    border: 2px solid rgba(241, 245, 249, 0.95);
+  }
+
+  .status-dot {
+    @apply inline-block h-2.5 w-2.5 rounded-full;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheetOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+}
+
+@keyframes loaderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loaderPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes loaderFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.fade-in {
+  animation: fadeUp 220ms ease-out both;
+}
+
+.sheet-overlay[data-state="open"] {
+  animation: overlayShow 180ms ease-out both;
+}
+
+.sheet-overlay[data-state="closed"] {
+  animation: overlayHide 140ms ease-in both;
+}
+
+.sheet-content[data-state="open"] {
+  animation: sheetIn 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.sheet-content[data-state="closed"] {
+  animation: sheetOut 180ms ease-in both;
+}
+
+.loader-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(56, 189, 248, 0.18), transparent 20%),
+    radial-gradient(circle at 82% 12%, rgba(14, 165, 233, 0.12), transparent 18%),
+    linear-gradient(180deg, #edf6ff 0%, #ffffff 100%);
+}
+
+.loader-orbit {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.loader-core {
+  position: absolute;
+  inset: 28px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #1d9bf0, #0f5cc0);
+  box-shadow: 0 18px 35px rgba(14, 116, 216, 0.28);
+  animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+.loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgba(14, 165, 233, 0.16);
+}
+
+.loader-ring-a {
+  border-top-color: #1d9bf0;
+  animation: loaderSpin 1.2s linear infinite;
+}
+
+.loader-ring-b {
+  inset: 10px;
+  border-right-color: #0f5cc0;
+  animation: loaderSpin 1.8s linear infinite reverse;
+}
+
+.loader-label {
+  margin-top: 18px;
+  color: #0f3f80;
+  font-size: 0.95rem;
+  font-weight: 700;
+  animation: loaderFloat 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none !important;
+  }
+
+  .sheet-overlay[data-state],
+  .sheet-content[data-state] {
+    animation: none !important;
+  }
+
+  .loader-core,
+  .loader-ring-a,
+  .loader-ring-b,
+  .loader-label {
+    animation: none !important;
+  }
+}

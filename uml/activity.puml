@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+actor Student
+actor Teacher
+actor Dean
+actor Admin
+
+rectangle "Веб‑система онлайн‑заявок на довідки" {
+  usecase "Перегляд каталогу\nтипів довідок" as UC1
+  usecase "Подання заявки\nу режимі TEMPLATE" as UC2
+  usecase "Подання заявки\nу режимі PURPOSE" as UC3
+  usecase "Перегляд власних заявок\nта status‑tracking" as UC4
+  usecase "Редагування власної заявки\n(з реініціацією подання)" as UC5
+
+  usecase "Перегляд потоку заявок\nфакультету" as UC6
+  usecase "Процесна верифікація\nта зміна статусу" as UC7
+  usecase "Відхилення з обґрунтуванням\n(decisionComment)" as UC8
+  usecase "Аналітика факультету\n(агрегації і тренди)" as UC9
+
+  usecase "Керування факультетами\nта призначеннями" as UC10
+  usecase "Керування каталогом\nтипів довідок" as UC11
+}
+
+Student --> UC1
+Teacher --> UC1
+
+Student --> UC2
+Student --> UC3
+Teacher --> UC2
+Teacher --> UC3
+
+Student --> UC4
+Teacher --> UC4
+Student --> UC5
+Teacher --> UC5
+
+Dean --> UC6
+Dean --> UC7
+Dean --> UC8
+Dean --> UC9
+
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+@enduml
