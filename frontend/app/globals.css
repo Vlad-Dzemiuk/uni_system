@@ -36,7 +36,6 @@
       radial-gradient(circle at top left, rgba(186, 230, 253, 0.82), transparent 26%),
       radial-gradient(circle at top right, rgba(224, 242, 254, 0.72), transparent 22%),
       linear-gradient(180deg, #eef5ff 0%, #f8fbff 38%, #f5f8fd 100%);
-    font-family: "Segoe UI", sans-serif;
   }
 
   body::before {
